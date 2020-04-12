@@ -15,7 +15,7 @@ let appData = {
 for(let i = 0; i < 2; i++){
     let a = prompt('Введите название основной статьи расходов в этом месяце', ''),
         b = +prompt('Введите стоимость', '0');
-    if( (typeof(a)) === "string" && (typeof(a)) !== null && (typeof(b)) !== null && (a.length) < 50 && (typeof(b)) !== 'string' && (a.length) > 0){
+    if( (typeof(a)) === "string" && (typeof(a)) !== null && (typeof(b)) !== null && (a.length) < 50 && !isNaN(b) && (a.length) > 0){
         console.log("passed");
         appData.expenses[a] = b;
     }
@@ -35,9 +35,9 @@ for(let i = 0; i < 2; i++){
         i--;
         alert("Вы не заполнили название обязательной статьи расходов или не ввели стоимость");
     }
-    else if((typeof(b)) === 'string'){
+    else if(isNaN(b)){
         i--;
-        alert("Не число");
+        alert("В поле стоимость можно ввести только число");
     }
     else{
         console.log('not passed');
