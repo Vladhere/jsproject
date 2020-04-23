@@ -1,8 +1,10 @@
 'use strict';
-
-let money = prompt("Ваш бюджет на месяц", ''),
+let money, date;
+function askingBudget(){
+    money = prompt("Ваш бюджет на месяц", '');
     date  = prompt("Введите сегодняшнюю дату");
-
+}
+askingBudget();
 let appData = {
     budget: money,
     expenses: {},
@@ -72,7 +74,9 @@ function detectDayBudget(){
 detectDayBudget();
 
 function detectLevel(){
-    if(appData.oneDayBudget < 100){
+    
+    
+    if(appData.oneDayBudget < 100 && appData.oneDayBudget != 0){
         alert("Низкий уровень дохода");
     }
     else if (appData.oneDayBudget > 100 && appData.oneDayBudget < 1000){
@@ -81,12 +85,22 @@ function detectLevel(){
     else if(appData.oneDayBudget > 1000){
         alert("Высокий уровень дохода");
     }
+    else{
+        alert('возможно не указан бюджет');
+        askingBudget(money, date);
+        appData.budget = money;
+        detectDayBudget();
+        detectLevel();
+        return true;
+         
+    }
+    
     
 }
 
-detectLevel();
 
-function checkSavings(){
+
+function checkSavings(y){
     if (appData.savings == true){
         let save = +prompt("Какова сумма накоплений"),
             percent = +prompt("Под какой процент");
@@ -94,8 +108,70 @@ function checkSavings(){
         appData.monthIncome = save/100/12*percent;
         alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
     }
+    y();
 }
-checkSavings();
+checkSavings(detectLevel);
+
+
+
+
+
+// Работа с объектами пример
+// let options = {
+//     width: 1024,
+//     height: 768
+// };
+// options.tv = {};
+
+// let a = "screen",
+//     b = true,
+//     c = "remote",
+//     d = true;
+
+// options.tv[a] = b; options.tv[c] = d;
+
+// for(let key in options){
+//     console.log("Object optional contain option " + key + " and property " + options[key]);
+// }
+
+
+// колбек с передачей значений
+// let c = 10,
+//     d = 5;
+
+// function first(a,b){
+//     console.log(a*b);
+   
+// }
+
+// function second(y){
+//     console.log(2);
+//     y();
+// }
+
+// // first();
+// second(function(){
+//     first(c,d);
+//         }
+//     );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // let i = 0;
